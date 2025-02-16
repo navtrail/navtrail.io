@@ -1,0 +1,144 @@
+<!-- code (10).txt - MapScreen.js -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MapScreen.js</title>
+    <style>
+        body { font-family: monospace; background-color: #f0f0f0; }
+        pre { background-color: #ffffff; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>MapScreen.js</h1>
+    <pre>
+        import React, {
+            useState,
+            useEffect
+        } from 'react';
+        import {
+            View,
+            StyleSheet,
+            SafeAreaView,
+            Switch,
+            Text
+        } from 'react-native';
+        import MapViewComponent from '../components/MapView';
+        import SearchBar from '../components/SearchBar';
+        import {
+            useNavigation
+        } from '@react-navigation/native'; // Import useNavigation
+        import {
+            useTheme
+        } from '../styles/theme'; // Import the useTheme hook
+        import * as Location from 'expo-location';
+
+        const MapScreen = () => {
+            const {
+                theme,
+                toggleTheme
+            } = useTheme(); // Access the theme and toggle function
+            const navigation = useNavigation(); // Use navigation hook
+            const [hasLocationPermission, setHasLocationPermission] = useState(false);
+
+            useEffect(() => {
+                const checkLocationPermission = async () => {
+                    let {
+                        status
+                    } = await Location.getForegroundPermissionsAsync();
+                    setHasLocationPermission(status === 'granted');
+                };
+
+                checkLocationPermission();
+            }, []);
+
+            const handleSearch = (searchText) => {
+                // Simulate searching for places
+                console.log('Searching for:', searchText);
+            };
+
+            const handleSuggestionPress = (suggestion) => {
+                // Simulate navigating to the selected place
+                console.log('Suggestion pressed:', suggestion);
+            };
+
+            const handleMarkerPress = (location) => {
+                navigation.navigate('PlaceDetails', {
+                    place: location
+                });
+            };
+
+            return ( &lt;
+                SafeAreaView style = {
+                    [styles.safeArea, {
+                        backgroundColor: theme.background
+                    }]
+                } &gt;
+                &lt;
+                View style = {
+                    [styles.container, {
+                        backgroundColor: theme.background
+                    }]
+                } &gt;
+                &lt;
+                View style = {
+                    styles.switchContainer
+                }
+                accessible = {
+                    true
+                }
+                accessibilityLabel = "Theme Settings"
+                accessibilityHint = "Allows switching between light and dark theme" &gt;
+                &lt;
+                Text style = {
+                    {
+                        color: theme.text
+                    }
+                } &gt; Dark Mode: &lt; /Text&gt; &lt;
+                Switch value = {
+                    theme.themeMode === 'dark'
+                }
+                onValueChange = {
+                    toggleTheme
+                }
+                accessibilityLabel = "Dark Mode Switch"
+                accessibilityHint = "Toggles between dark and light theme" /
+                &gt;
+                &lt;
+                /View&gt; &lt;
+                SearchBar onSearch = {
+                    handleSearch
+                }
+                onSuggestionPress = {
+                    handleSuggestionPress
+                }
+                /&gt; &lt;
+                MapViewComponent onMarkerPress = {
+                    handleMarkerPress
+                }
+                /&gt; &lt;
+                /View&gt; &lt;
+                /SafeAreaView&gt;
+            );
+        };
+
+        const styles = StyleSheet.create({
+            safeArea: {
+                flex: 1,
+            },
+            container: {
+                flex: 1,
+                backgroundColor: '#fff',
+            },
+            switchContainer: {
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingHorizontal: 20,
+                paddingTop: 10,
+            },
+        });
+
+        export default MapScreen;
+    </pre>
+</body>
+</html>
