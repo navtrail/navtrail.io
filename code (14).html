@@ -1,0 +1,56 @@
+<!-- code (4).txt - LoadingIndicator.js -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LoadingIndicator.js</title>
+    <style>
+        body { font-family: monospace; background-color: #f0f0f0; }
+        pre { background-color: #ffffff; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>LoadingIndicator.js</h1>
+    <pre>
+import React from 'react';
+import {
+    View,
+    ActivityIndicator,
+    StyleSheet
+} from 'react-native';
+import {
+    useTheme
+} from '../styles/theme'; // Import the useTheme hook
+
+const LoadingIndicator = () => {
+    const {
+        theme
+    } = useTheme(); // Access the theme
+
+    return ( &lt;
+        View style = {
+            [styles.container, {
+                backgroundColor: theme.background
+            }]
+        } &gt;
+        &lt;
+        ActivityIndicator size = "large"
+        color = {
+            theme.primary
+        }
+        /&gt; &lt;
+        /View&gt;
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+});
+
+export default LoadingIndicator;
+    </pre>
+</body>
+</html>
