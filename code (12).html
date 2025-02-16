@@ -1,0 +1,82 @@
+<!-- code (2).txt - AppNavigator.js -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AppNavigator.js</title>
+    <style>
+        body { font-family: monospace; background-color: #f0f0f0; }
+        pre { background-color: #ffffff; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>AppNavigator.js</h1>
+    <pre>
+import React from 'react';
+import {
+    createStackNavigator
+} from '@react-navigation/stack';
+import MapScreen from '../screens/MapScreen';
+import PlaceDetailsScreen from '../screens/PlaceDetailsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import {
+    useTheme
+} from '../styles/theme'; // Import the useTheme hook
+
+const Stack = createStackNavigator();
+
+const AppNavigator = () => {
+    const {
+        theme
+    } = useTheme(); // Access the theme
+    return ( &lt;
+        Stack.Navigator initialRouteName = "Map"
+        screenOptions = {
+            {
+                headerStyle: {
+                    backgroundColor: theme.primary,
+                },
+                headerTintColor: theme.text,
+                headerTitleStyle: {
+                    fontWeight: 'bold',
+                },
+            }
+        } &gt;
+        &lt;
+        Stack.Screen name = "Map"
+        component = {
+            MapScreen
+        }
+        options = {
+            {
+                title: 'Map'
+            }
+        }
+        /&gt; &lt;
+        Stack.Screen name = "PlaceDetails"
+        component = {
+            PlaceDetailsScreen
+        }
+        options = {
+            {
+                title: 'Place Details'
+            }
+        }
+        /&gt; &lt;
+        Stack.Screen name = "Profile"
+        component = {
+            ProfileScreen
+        }
+        options = {
+            {
+                title: 'Profile'
+            }
+        }
+        /&gt; &lt;
+        /Stack.Navigator>
+    );
+};
+
+export default AppNavigator;
+    </pre>
+</body>
+</html>
