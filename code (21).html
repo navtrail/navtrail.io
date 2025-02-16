@@ -1,0 +1,41 @@
+<!-- code (11).txt - PlaceDetailsScreen.js -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PlaceDetailsScreen.js</title>
+    <style>
+        body { font-family: monospace; background-color: #f0f0f0; }
+        pre { background-color: #ffffff; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>PlaceDetailsScreen.js</h1>
+    <pre>
+        import React from 'react';
+        import {
+            View,
+            Text,
+            Image,
+            StyleSheet,
+            ScrollView
+        } from 'react-native';
+        import {
+            useRoute
+        } from '@react-navigation/native';
+        import {
+            useTheme
+        } from '../styles/theme'; // Import the useTheme hook
+
+        const PlaceDetailsScreen = () => {
+            const {
+                theme
+            } = useTheme(); // Access the theme
+            const route = useRoute();
+            const {
+                place
+            } = route.params;
+
+            return ( &lt;
+                ScrollView style = {
+                    [styles.container, {
+                        backgroundColor: theme.background
