@@ -1,0 +1,99 @@
+<!-- code (1).txt - App.js -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>App.js</title>
+    <style>
+        body { font-family: monospace; background-color: #f0f0f0; }
+        pre { background-color: #ffffff; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>App.js</h1>
+    <pre>
+import React, {
+    useState,
+    useEffect,
+    createContext,
+    useContext
+} from 'react';
+import {
+    NavigationContainer
+} from '@react-navigation/native';
+import AppNavigator from './navigation/AppNavigator';
+import {
+    ThemeProvider,
+    useTheme
+} from './styles/theme';
+import LoadingIndicator from './components/LoadingIndicator';
+import ErrorMessage from './components/ErrorMessage';
+
+// Create ThemeContext
+const ThemeContext = createContext({
+    themeMode: 'light',
+    toggleTheme: () => {}
+});
+
+// Custom hook to access the theme
+export const useAppTheme = () => useContext(ThemeContext);
+
+const App = () => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [themeMode, setThemeMode] = useState('light'); // Default theme
+
+    useEffect(() => {
+        // Simulate initial loading (fetching data, etc.)
+        const loadData = async () => {
+            try {
+                // You can simulate an API call or any loading process here
+                await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate 2 seconds loading
+            } catch (err) {
+                setError(err);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        loadData();
+    }, []);
+
+    const toggleTheme = () => {
+        setThemeMode(themeMode === 'light' ? 'dark' : 'light');
+    };
+
+    if (isLoading) {
+        return &lt; LoadingIndicator /&gt;;
+    }
+
+    if (error) {
+        return &lt; ErrorMessage message = {
+            error.message
+        }
+        onRetry = {
+            () => setIsLoading(true)
+        }
+        /&gt;;
+    }
+
+    return ( &lt;
+        ThemeProvider themeMode = {
+            themeMode
+        }
+        toggleTheme = {
+            toggleTheme
+        } &gt;
+        &lt;
+        NavigationContainer &gt;
+        &lt;
+        AppNavigator / &gt;
+        &lt;
+        /NavigationContainer&gt; &lt;
+        /ThemeProvider&gt;
+    );
+};
+
+export default App;
+    </pre>
+</body>
+</html>
