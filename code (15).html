@@ -1,0 +1,76 @@
+<!-- code (5).txt - ErrorMessage.js -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ErrorMessage.js</title>
+    <style>
+        body { font-family: monospace; background-color: #f0f0f0; }
+        pre { background-color: #ffffff; padding: 10px; border: 1px solid #ccc; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>ErrorMessage.js</h1>
+    <pre>
+import React from 'react';
+import {
+    View,
+    Text,
+    Button,
+    StyleSheet
+} from 'react-native';
+import {
+    useTheme
+} from '../styles/theme'; // Import the useTheme hook
+
+const ErrorMessage = ({
+    message,
+    onRetry
+}) => {
+    const {
+        theme
+    } = useTheme(); // Access the theme
+
+    return ( &lt;
+        View style = {
+            [styles.container, {
+                backgroundColor: theme.background
+            }]
+        } &gt;
+        &lt;
+        Text style = {
+            [styles.text, {
+                color: theme.error
+            }]
+        } &gt; Error: {
+            message
+        } &lt; /Text&gt; {
+            onRetry && &lt; Button title = "Retry"
+            onPress = {
+                onRetry
+            }
+            color = {
+                theme.primary
+            }
+            /&gt;} &lt;
+            /View&gt;
+        );
+    };
+
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 20,
+        },
+        text: {
+            fontSize: 16,
+            marginBottom: 10,
+            textAlign: 'center',
+        },
+    });
+
+    export default ErrorMessage;
+    </pre>
+</body>
+</html>
